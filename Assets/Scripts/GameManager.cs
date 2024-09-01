@@ -60,12 +60,21 @@ public class GameManager : MonoBehaviour {
     private void SetGameState(GameState newGameState) {
         if (newGameState == GameState.menu) {
             // TODO: menu logic (show menu, buttons, pause game, etc).
+            GameViewManager.sharedInstance.HideGameView();
+            MenuManager.sharedInstance.HideGameOverMenu();
+            MenuManager.sharedInstance.ShowMainMenu();
         } else if (newGameState == GameState.inGame) {
-            // prepare scene to play.
+            // TODO: prepare scene to play.
             LevelManager.sharedInstance.RemoveAllLevelsBlock();
             Invoke("ReloadLevel", 0.1f);
+            MenuManager.sharedInstance.HideMainMenu();
+            MenuManager.sharedInstance.HideGameOverMenu();
+            GameViewManager.sharedInstance.ShowGameView();
         } else if (newGameState == GameState.gameOver) {
             // TODO: prepare game for Game Over.
+            MenuManager.sharedInstance.HideMainMenu();
+            GameViewManager.sharedInstance.HideGameView();
+            MenuManager.sharedInstance.ShowGameOverMenu();
         }
 
         this.currentGameState = newGameState;
