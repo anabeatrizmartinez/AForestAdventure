@@ -19,6 +19,7 @@ public class GameManager : MonoBehaviour {
 
     PlayerController controller;
 
+    public int collectedObject = 0;
 
     void Awake() {
         if (sharedInstance == null) {
@@ -83,5 +84,10 @@ public class GameManager : MonoBehaviour {
     void ReloadLevel() {
         LevelManager.sharedInstance.GenerateInitialLevelsBlock();
         controller.StartGame();
+    }
+
+    //  For collectable objects like stars and carrots
+    public void CollectObject(Collectable collectable) {
+        collectedObject += collectable.value;
     }
 }

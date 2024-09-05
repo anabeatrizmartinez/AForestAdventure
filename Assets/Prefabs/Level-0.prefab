@@ -648,10 +648,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1090242408086496219, guid: 3803a5ab1cfd7e14d98855f9f90fae1f, type: 3}
-      propertyPath: m_IsTrigger
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 1090242408086496220, guid: 3803a5ab1cfd7e14d98855f9f90fae1f, type: 3}
       propertyPath: m_Name
       value: Star-static (2)
@@ -712,10 +708,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1090242408086496216, guid: 3803a5ab1cfd7e14d98855f9f90fae1f, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1090242408086496219, guid: 3803a5ab1cfd7e14d98855f9f90fae1f, type: 3}
-      propertyPath: m_IsTrigger
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1090242408086496220, guid: 3803a5ab1cfd7e14d98855f9f90fae1f, type: 3}
@@ -1122,10 +1114,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1090242408086496219, guid: 3803a5ab1cfd7e14d98855f9f90fae1f, type: 3}
-      propertyPath: m_IsTrigger
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 1090242408086496220, guid: 3803a5ab1cfd7e14d98855f9f90fae1f, type: 3}
       propertyPath: m_Name
       value: Star-static (1)
@@ -1186,10 +1174,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1090242408086496216, guid: 3803a5ab1cfd7e14d98855f9f90fae1f, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1090242408086496219, guid: 3803a5ab1cfd7e14d98855f9f90fae1f, type: 3}
-      propertyPath: m_IsTrigger
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1090242408086496220, guid: 3803a5ab1cfd7e14d98855f9f90fae1f, type: 3}

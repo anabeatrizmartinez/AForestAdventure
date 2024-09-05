@@ -11,6 +11,8 @@ public class GameViewManager : MonoBehaviour {
     public TMP_Text starsText, scoreText, maxScoreText;
     public TMP_SpriteAsset starsTextSpriteAsset;
 
+    private PlayerController controller;
+
     public void Awake() {
         if (sharedInstance == null) {
             sharedInstance = this;
@@ -28,17 +30,16 @@ public class GameViewManager : MonoBehaviour {
     }
 
     // Start is called before the first frame update
-    void Start()
-    {
-        
+    void Start() {
+        controller = GameObject.Find("Player").GetComponent<PlayerController>();
     }
 
     // Update is called once per frame
     void Update() {
         if (GameManager.sharedInstance.currentGameState == GameState.inGame) {
-            int stars = 0;
-            float score = 0;
-            float maxScore = 0;
+            int stars = GameManager.sharedInstance.collectedObject;
+            float score = controller.GetTravelledDistance(); // it's better to reference objects at the start and not in the update();
+            float maxScore = PlayerPrefs.GetFloat("maxscore", 0f);
 
             starsText.spriteAsset = starsTextSpriteAsset;
             starsText.text = "<sprite=72> " + stars.ToString();

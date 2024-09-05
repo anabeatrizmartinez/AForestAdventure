@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour {
@@ -10,6 +11,7 @@ public class PlayerController : MonoBehaviour {
     float horizontalMove = 0f;
     bool facingRight;
     bool jump = false;
+    bool isSuperJump = false;
     Color purple = new Color(0.6f, 0.0f, 0.8f);
 
     public CharacterController controller;
@@ -20,6 +22,15 @@ public class PlayerController : MonoBehaviour {
     const string STATE_ALIVE = "isAlive"; // "isAlive" is the parameter in the Animator section of Unity.
     const string STATE_TAKE_OF = "takeOf";
     const string STATE_RUNNING = "isRunning";
+
+    private int healthPoints; // Carrots in this game
+    private int manaPoints; // When destroying enemies
+    
+    public const int INITIAL_HEALTH = 5, MAX_HEALTH = 10, MIN_HEALTH = 1,
+        INITIAL_MANA = 15, MAX_MANA = 30, MIN_MANA = 0;
+
+    public const int SUPERJUMP_COST = 5; // With mana
+    public const float SUPERJUMP_FORCE = 1.2f;
 
     public LayerMask groundMask; // To identify the ground
 
@@ -38,6 +49,9 @@ public class PlayerController : MonoBehaviour {
     public void StartGame() { // Personalized function
         animator.SetBool(STATE_ALIVE, true);
         facingRight = true;
+
+        healthPoints = INITIAL_HEALTH;
+        manaPoints = INITIAL_MANA;
 
         Invoke("RestartPosition", 0.2f); // Delay player reposition to wait until the animation of death is over.
     }
@@ -58,6 +72,12 @@ public class PlayerController : MonoBehaviour {
     void Update() {
         if (Input.GetButtonDown("Jump")) {
             jump = true;
+            isSuperJump = false;
+        }
+
+        if (Input.GetButtonDown("Superjump")) {
+            jump = true;
+            isSuperJump = true;
         }
 
         horizontalMove = Input.GetAxisRaw("Horizontal"); // Detect if player looking right or left. If press => or D results in 1, but if press <= or A results in -1.
@@ -115,8 +135,15 @@ public class PlayerController : MonoBehaviour {
     }
 
     void Jump() {
+        float jumpForceFactor = jumpForce;
+
+        if (isSuperJump && manaPoints >= SUPERJUMP_COST) {
+            manaPoints -= SUPERJUMP_COST;
+            jumpForceFactor *= SUPERJUMP_FORCE;
+        }
+
         if (IsTouchingTheGround()) {
-            rigidBody.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
+            rigidBody.AddForce(Vector2.up * jumpForceFactor, ForceMode2D.Impulse);
 
             animator.SetTrigger(STATE_TAKE_OF);
         }
@@ -144,8 +171,43 @@ public class PlayerController : MonoBehaviour {
     }
 
     public void Die() {
+        // Max score
+        float travelledDistance = GetTravelledDistance();
+        float previousMaxDistance = PlayerPrefs.GetFloat("maxscore", 0f);
+        if (travelledDistance > previousMaxDistance) {
+            PlayerPrefs.SetFloat("maxscore", travelledDistance);
+        }
+
         animator.SetBool(STATE_ALIVE, false);
 
         GameManager.sharedInstance.GameOver();
+    }
+
+    public void CollectHealth(int points) {
+        this.healthPoints += points;
+
+        if (this.healthPoints >= MAX_HEALTH) {
+            this.healthPoints = MAX_HEALTH;
+        }
+    }
+
+    public void CollectMana(int points) {
+        this.manaPoints += points;
+
+        if (this.manaPoints >= MAX_MANA) {
+            this.manaPoints = MAX_MANA;
+        }
+    }
+
+    public int GetHealth() {
+        return healthPoints;
+    }
+
+    public int GetMana() {
+        return manaPoints;
+    }
+
+    public float GetTravelledDistance() {
+        return this.transform.position.x - startPosition.x;
     }
 }

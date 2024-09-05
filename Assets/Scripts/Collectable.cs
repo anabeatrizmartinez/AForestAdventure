@@ -13,15 +13,21 @@ public class Collectable : MonoBehaviour {
     public CollectableType type = CollectableType.star;
 
     private SpriteRenderer sprite;
-    private CircleCollider2D itemCollider;
+    private Collider2D itemCollider;
 
     bool hasBeenCollected = false;
 
     public int value = 1;
 
+    GameObject player;
+
     private void Awake() {
         sprite = GetComponent<SpriteRenderer>();
-        itemCollider = GetComponent<CircleCollider2D>();
+        itemCollider = GetComponent<Collider2D>();
+    }
+
+    private void Start() {
+        player = GameObject.Find("Player");
     }
 
     void Show() {
@@ -41,17 +47,20 @@ public class Collectable : MonoBehaviour {
 
         switch (this.type) {
             case CollectableType.star:
-            // TODO: star logic
-            break;
+                GameManager.sharedInstance.CollectObject(this);
+                break;
 
             case CollectableType.carrot:
-            // TODO: carrot logic
-            break;
+                player.GetComponent<PlayerController>().CollectHealth(this.value);
+                break;
         }
+
+        // TODO: Collect mana when destroying enemies.
     }
 
     void OnTriggerEnter2D(Collider2D collision) {
-        if(collision.tag == "Player") {
+        if (collision.tag == "Player") {
+            // Destroy(gameObject); // Just for testing
             Collect();
         }
     }
