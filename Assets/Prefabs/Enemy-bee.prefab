@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 5667063146594448762}
   - component: {fileID: 620675625500637013}
   - component: {fileID: 6903014159095751224}
+  - component: {fileID: 239022545}
   m_Layer: 8
   m_Name: Enemy-bee
   m_TagString: Enemy-bee
@@ -118,7 +119,7 @@ CapsuleCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: -0.005419731, y: 0.0018066019}
@@ -144,4 +145,16 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 4
+  m_Constraints: 6
+--- !u!114 &239022545
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5667063146594448763}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 25ffbb2f9d540a24784829c2ea1a1e8d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

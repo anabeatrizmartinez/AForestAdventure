@@ -60,19 +60,20 @@ public class GameManager : MonoBehaviour {
     // To modify the game state, like traffic lights - It's better to have a single method to control possible changes to state variables.
     private void SetGameState(GameState newGameState) {
         if (newGameState == GameState.menu) {
-            // TODO: menu logic (show menu, buttons, pause game, etc).
+            // menu logic (show menu, buttons, pause game, etc).
             GameViewManager.sharedInstance.HideGameView();
             MenuManager.sharedInstance.HideGameOverMenu();
             MenuManager.sharedInstance.ShowMainMenu();
         } else if (newGameState == GameState.inGame) {
-            // TODO: prepare scene to play.
+            // prepare scene to play.
             LevelManager.sharedInstance.RemoveAllLevelsBlock();
             Invoke("ReloadLevel", 0.1f);
             MenuManager.sharedInstance.HideMainMenu();
             MenuManager.sharedInstance.HideGameOverMenu();
+            collectedObject = 0; // Initialize stars
             GameViewManager.sharedInstance.ShowGameView();
         } else if (newGameState == GameState.gameOver) {
-            // TODO: prepare game for Game Over.
+            // prepare game for Game Over.
             MenuManager.sharedInstance.HideMainMenu();
             GameViewManager.sharedInstance.HideGameView();
             MenuManager.sharedInstance.ShowGameOverMenu();

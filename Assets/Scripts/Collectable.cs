@@ -64,4 +64,11 @@ public class Collectable : MonoBehaviour {
             Collect();
         }
     }
+
+    void OnCollisionEnter2D(Collision2D collision) { // For objects with "Is trigger" disabled.
+        if (collision.gameObject.CompareTag("Player")) {
+            // Destroy(gameObject); // Just for testing
+            Collect();
+        }
+    }
 }

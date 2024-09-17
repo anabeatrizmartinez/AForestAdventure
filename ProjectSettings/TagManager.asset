@@ -9,11 +9,16 @@ TagManager:
   - Chest
   - Enemy-bee
   - Enemy-death
+  - Stair
+  - Box
+  - ActivateMovingPlatform
+  - MovingPlatform
+  - Underground
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Stair
   - Water
   - UI
   - 

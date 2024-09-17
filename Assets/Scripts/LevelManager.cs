@@ -9,7 +9,10 @@ public class LevelManager : MonoBehaviour {
     public List<LevelBlock> allTheLevelBlocks = new List<LevelBlock>();  // All the level block avalaibles.
     public List<LevelBlock> currentLevelBlocks = new List<LevelBlock>(); // Current level blocks in the scene.
     public Transform levelStartPosition;
-
+    
+    // Walk Block to not fall from the edge at the level start point.
+    public GameObject walkBlockPrefab; // For the prefab
+    private GameObject walkBlock; // For the instance of the prefab
 
     void Awake() {
         if (sharedInstance == null) {
@@ -18,7 +21,7 @@ public class LevelManager : MonoBehaviour {
     }
 
     // Start is called before the first frame update
-    void Start()     {
+    void Start() {
         GenerateInitialLevelsBlock();
     }
 
@@ -28,7 +31,8 @@ public class LevelManager : MonoBehaviour {
         
     }
 
-    public void AddLevelBlock() {
+    public void AddLevelBlock(bool inExitZone) {
+        // Level block
         int randomIdx = Random.Range(0, allTheLevelBlocks.Count);
 
         LevelBlock block;
@@ -42,8 +46,16 @@ public class LevelManager : MonoBehaviour {
             spawnPosition = currentLevelBlocks[currentLevelBlocks.Count - 1].EndPoint.position;
         }
 
-        block.transform.SetParent(this.transform, false);
+        block.transform.SetParent(this.transform, false); // Add block to the scene
 
+        // Walk Block to not fall from the edge at the level start point.
+        if (currentLevelBlocks.Count == 0) { // If it's the first level block.
+            AddWalkBlock(block);
+        } else if (inExitZone) {
+            AddWalkBlock(currentLevelBlocks[1]);
+        }
+
+        // Continue the level block logic
         Vector3 correction = new Vector3(
             spawnPosition.x - block.StartPoint.position.x,
             spawnPosition.y - block.StartPoint.position.y,
@@ -69,7 +81,12 @@ public class LevelManager : MonoBehaviour {
 
     public void GenerateInitialLevelsBlock() {
         for (int i = 0; i < 4; i++) {
-            AddLevelBlock();
+            // AddLevelBlock(false);
         }
+    }
+
+    void AddWalkBlock(LevelBlock block) {
+        walkBlock = Instantiate(walkBlockPrefab);
+        walkBlock.transform.SetParent(block.transform, false); // Add walkBlock to the Block Level;
     }
 }
