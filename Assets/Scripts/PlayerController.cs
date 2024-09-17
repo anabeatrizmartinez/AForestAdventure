@@ -137,7 +137,7 @@ public class PlayerController : MonoBehaviour {
     private void HandleMovement() {
         animator.SetBool(STATE_RUNNING, true);
 
-        if (rigidBody.velocity.x < runningSpeed) {
+        if (Math.Abs(rigidBody.velocity.x) < runningSpeed) {
             rigidBody.velocity = new Vector2(horizontalMove * runningSpeed, rigidBody.velocity.y);
         }
 
