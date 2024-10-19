@@ -81,7 +81,7 @@ public class LevelManager : MonoBehaviour {
 
     public void GenerateInitialLevelsBlock() {
         for (int i = 0; i < 4; i++) {
-            // AddLevelBlock(false);
+            AddLevelBlock(false);
         }
     }
 

@@ -14,6 +14,8 @@ TagManager:
   - ActivateMovingPlatform
   - MovingPlatform
   - Underground
+  - Environment
+  - Exit-zone
   layers:
   - Default
   - TransparentFX

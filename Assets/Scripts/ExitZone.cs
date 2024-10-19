@@ -18,7 +18,7 @@ public class ExitZone : MonoBehaviour
     }
 
     void OnTriggerEnter2D(Collider2D collision) {
-        if (collision.tag == "Player") {
+        if (collision.GetComponent<PlayerBody>()) {
             LevelManager.sharedInstance.AddLevelBlock(true);
             LevelManager.sharedInstance.RemoveLevelBlock();
         }

@@ -97,8 +97,6 @@ public class PlayerController : MonoBehaviour {
 
         // // Gizmos - works for debugging, view lines in game mode
         // float characterHeight = GetComponent<Collider2D>().bounds.size.y; // Character's height
-        // jumpRayDistance = 0.8f * characterHeight; // 80% of the height, since the bottom edge of the collider is a little above the real bottom edge of the object, so 50% still doesn't get to touch the ground layer.
-
         // Vector2 direction = Vector2.down; // Ray direction down
         // direction.Normalize(); // Normalize the vector. This ensures that the direction has 1 unit of length and the result is more accurate.
 
@@ -137,7 +135,7 @@ public class PlayerController : MonoBehaviour {
     private void HandleMovement() {
         animator.SetBool(STATE_RUNNING, true);
 
-        if (Math.Abs(rigidBody.velocity.x) < runningSpeed) {
+        if (Math.Abs(rigidBody.velocity.x) < runningSpeed) { // Abs() eliminates possible errors with Flip() function.
             rigidBody.velocity = new Vector2(horizontalMove * runningSpeed, rigidBody.velocity.y);
         }
 
@@ -172,8 +170,6 @@ public class PlayerController : MonoBehaviour {
     // Indicates if the character is touching or not the ground
     bool IsTouchingTheGround() { 
         float characterHeight = GetComponent<Collider2D>().bounds.size.y; // Character's height
-        jumpRayDistance = 0.8f * characterHeight; // 80% of the height, since the bottom edge of the collider is a little above the real bottom edge of the object, so 50% still doesn't get to touch the ground layer.
-
         Vector2 direction = Vector2.down; // Ray direction down
         direction.Normalize(); // Normalize the vector. This ensures that the direction has 1 unit of length and the result is more accurate.
 
@@ -199,6 +195,8 @@ public class PlayerController : MonoBehaviour {
         }
 
         animator.SetBool(STATE_ALIVE, false);
+        rigidBody.velocity = Vector2.zero;
+        rigidBody.gravityScale = 0;
 
         GameManager.sharedInstance.GameOver();
     }

@@ -6,30 +6,26 @@ using UnityEngine.UIElements;
 
 public class Enemy : MonoBehaviour {
 
-    public float runningSpeed = 1f;
+    public float runningSpeed = 0.7f;
     public bool facingRight;
-    public int enemyDamage = 2;
-    public float forceDamageX  = 1f;
-    public float forceDamageY  = 2.5f;
 
     Rigidbody2D rigidBody;
-    private Vector3 startPosition;
-    private GameObject player;
-    private Rigidbody2D rbPlayer;
-    private SpriteRenderer spriteRenderer;
+    private Vector3 startPosition; 
+    private Animator animator;
+
+    const string STATE_ENEMY_ALIVE = "isAlive";
 
 
     private void Awake() {
         rigidBody = GetComponent<Rigidbody2D>();
-        startPosition = this.transform.position;
-        player = GameObject.Find("Player");
-        rbPlayer = player.GetComponent<Rigidbody2D>();
-        spriteRenderer = player.GetComponent<SpriteRenderer>();
+        // startPosition = this.transform.position; // Enemy's start position for the first time.
+        animator = GetComponent<Animator>();
     }
 
     // Start is called before the first frame update
     void Start() {
-        this.transform.position = startPosition;
+        animator.SetBool(STATE_ENEMY_ALIVE, true);
+        // this.transform.position = startPosition; // Reset to the original position every time it's instantiated.
         facingRight = false;
     }
 
@@ -52,28 +48,18 @@ public class Enemy : MonoBehaviour {
 
         if (GameManager.sharedInstance.currentGameState == GameState.inGame) { // Move only inside Game.
             rigidBody.velocity = new Vector2(currentRunningSpeed, rigidBody.velocity.y);
+        } else if (GameManager.sharedInstance.currentGameState == GameState.gameOver) {
+            rigidBody.velocity = Vector2.zero;
         }
     }
 
     private void OnTriggerEnter2D(Collider2D collision) {
-        if (collision.tag == "Star" || collision.tag == "Carrot") {
+        if (collision.tag == "Star" || collision.tag == "Carrot" || collision.tag == "Exit-zone") {
             return;
         }
 
-        if (collision.tag == "Player") {
-            player.GetComponent<PlayerController>().CollectHealth(-enemyDamage); // Reduce Player's life
-
-            // To make the player jump when collides with the enemy.
-            Vector3 playerPos = collision.transform.position; // Player's position
-            Vector3 currentPos = transform.position; // Enemy's position
-            Vector3 dir = playerPos - currentPos; // Direction for the force
-            dir.Normalize();
-
-            Debug.Log("Horizontal direction: " + dir);
-            Debug.Log("Force: " + dir * forceDamageX);
-
-            rbPlayer.AddForce(new Vector2(dir.x * forceDamageX, forceDamageY), ForceMode2D.Impulse);
-
+        if (collision.tag == "Player") {            
+            // The logic is in the child script, both player and enemy.
             return;
         }
 
