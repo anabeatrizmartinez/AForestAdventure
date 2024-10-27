@@ -10,6 +10,8 @@ public class EnemyPlayerHeadCheck : MonoBehaviour {
     private Rigidbody2D rbEnemy;
     private Animator animatorEnemy;
     private SpriteRenderer spriteRendererEnemy;
+    private GameObject player;
+    private int newMana = 7;
 
     const string STATE_ENEMY_ALIVE = "isAlive";
 
@@ -21,6 +23,8 @@ public class EnemyPlayerHeadCheck : MonoBehaviour {
         rbEnemy = this.transform.parent.GetComponent<Rigidbody2D>();
         animatorEnemy = this.transform.parent.GetComponent<Animator>();
         spriteRendererEnemy = this.transform.parent.GetComponent<SpriteRenderer>();
+
+        player = GameObject.Find("Player");
     }
 
     private void OnTriggerEnter2D(Collider2D collision) {
@@ -31,12 +35,14 @@ public class EnemyPlayerHeadCheck : MonoBehaviour {
             animatorEnemy.SetBool(STATE_ENEMY_ALIVE, false);
             currentCollider.enabled = false;
             colliderEnemy.enabled = false;
-            StartCoroutine(HideAfterDelay(0.5f)); // Hide enemy
+            Invoke("HideAfterDelay", 0.5f); // Hide enemy
+
+            // Increase Mana
+            player.GetComponent<PlayerController>().CollectMana(+newMana);
         }
     }
 
-    private IEnumerator HideAfterDelay(float delay) {
-        yield return new WaitForSeconds(delay);
+    private void HideAfterDelay() {
         spriteRendererEnemy.enabled = false;
         // rbEnemy.constraints = RigidbodyConstraints2D.None;
         // rbEnemy.constraints = RigidbodyConstraints2D.FreezePositionY;

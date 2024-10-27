@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 2611816186376835334}
   - component: {fileID: 2611816186376835335}
   - component: {fileID: -2839268888125772509}
+  - component: {fileID: 960476658}
   m_Layer: 8
   m_Name: platform-6-cornerRight
   m_TagString: Untagged
@@ -98,6 +99,22 @@ CapsuleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.0007818606, y: -0.0012252629}
-  m_Size: {x: 0.15843625, y: 0.15392376}
-  m_Direction: 0
+  m_Offset: {x: -0.02317862, y: 0.034352478}
+  m_Size: {x: 0.11364517, y: 0.08122691}
+  m_Direction: 1
+--- !u!70 &960476658
+CapsuleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2611816186376835332}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0.0013346047, y: 0.010223441}
+  m_Size: {x: 0.15806407, y: 0.06349472}
+  m_Direction: 1

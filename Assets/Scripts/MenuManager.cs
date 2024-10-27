@@ -2,16 +2,20 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 public class MenuManager : MonoBehaviour {
 
     public static MenuManager sharedInstance;
-    public GameObject mainMenu, gameOverMenu;
+    public GameObject mainMenu, gameOverMenu, pauseMenu;
+    public Button playButtonMainMenu, retryButton, playButtonPauseMenu, continueButton;
 
     public TMP_Text starsText, scoreText;
     public TMP_SpriteAsset starsTextSpriteAsset;
 
     private PlayerController controller;
+
 
     public void Awake() {
         if (sharedInstance == null) {
@@ -37,6 +41,14 @@ public class MenuManager : MonoBehaviour {
         gameOverMenu.SetActive(false);
     }
 
+    public void ShowPauseMenu() {
+        pauseMenu.SetActive(true);
+    }
+
+    public void HidePauseMenu() {
+        pauseMenu.SetActive(false);
+    }
+
     public void ExitGame() {
         // Depends of the platform
         #if UNITY_EDITOR
@@ -49,6 +61,16 @@ public class MenuManager : MonoBehaviour {
     // Start is called before the first frame update
     void Start() {
         controller = GameObject.Find("Player").GetComponent<PlayerController>();
+
+        playButtonMainMenu.interactable = true;
+        retryButton.interactable = true;
+        playButtonPauseMenu.interactable = true;
+        continueButton.interactable = true;
+
+        playButtonMainMenu.onClick.AddListener(() => ResetButtonState(playButtonMainMenu));
+        retryButton.onClick.AddListener(() => ResetButtonState(retryButton));
+        playButtonPauseMenu.onClick.AddListener(() => ResetButtonState(playButtonPauseMenu));
+        continueButton.onClick.AddListener(() => ResetButtonState(continueButton));
     }
 
     // Update is called once per frame
@@ -61,5 +83,9 @@ public class MenuManager : MonoBehaviour {
             starsText.text = "<sprite=72> " + stars.ToString();
             scoreText.text = "Score: " + score.ToString("f1");
         }
+    }
+
+    void ResetButtonState(Button button) {
+        EventSystem.current.SetSelectedGameObject(null);
     }
 }

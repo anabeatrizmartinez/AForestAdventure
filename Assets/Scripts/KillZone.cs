@@ -6,13 +6,16 @@ using UnityEngine;
 public class KillZone : MonoBehaviour {
 
     PlayerController controller;
+    Collider2D currentCollider;
 
     private void Awake() {
         controller = GameObject.Find("Player").GetComponent<PlayerController>();
+        currentCollider = GetComponent<Collider2D>();
     }
 
     private void OnTriggerEnter2D(Collider2D collision) { // When a collider enters another.
         if (collision.tag == "Player") {
+            currentCollider.enabled = false;
             controller.Die();
         }
     }

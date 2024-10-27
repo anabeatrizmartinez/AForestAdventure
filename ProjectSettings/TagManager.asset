@@ -16,6 +16,7 @@ TagManager:
   - Underground
   - Environment
   - Exit-zone
+  - WalkBlock
   layers:
   - Default
   - TransparentFX

@@ -14,6 +14,7 @@ public class PlayerController : MonoBehaviour {
     bool isSuperJump = false;
     Color purple = new Color(0.6f, 0.0f, 0.8f);
     public float jumpRayDistance = 0.2f;
+    private int conForStartGame = 0;
 
     [SerializeField] private Rigidbody2D rigidBody;
     Vector3 startPosition; // Variables are private by default.
@@ -32,7 +33,7 @@ public class PlayerController : MonoBehaviour {
         INITIAL_MANA = 15, MAX_MANA = 30, MIN_MANA = 0;
 
     public const int SUPERJUMP_COST = 5; // With mana
-    public const float SUPERJUMP_FORCE = 1.2f;
+    public const float SUPERJUMP_FORCE = 1.5f;
 
     public LayerMask groundMask; // To identify the ground
 
@@ -41,6 +42,12 @@ public class PlayerController : MonoBehaviour {
     private float speed = 1f;
     private bool isLadder; // If the player is standing next to a ladder.
     private bool isClimbing; // If the player is already climbing the ladder or not.
+
+    // For interaction with the enemy
+    public int enemyDamage = 2;
+    public float forceDamageX  = -1.5f;
+    public float forceDamageY  = 1.5f;
+
 
     // Awake is called before Start, it's the first to load.
     void Awake() {
@@ -55,18 +62,31 @@ public class PlayerController : MonoBehaviour {
     }
 
     public void StartGame() { // Personalized function
+        conForStartGame++;
+        
+        // Start player's animation
         animator.SetBool(STATE_ALIVE, true);
+
+        // For always start player facing to the right
+        if (spriteRenderer.flipX) {
+            spriteRenderer.flipX = !spriteRenderer.flipX;
+        }
         facingRight = true;
 
+        // Initiate health and mana
         healthPoints = INITIAL_HEALTH;
         manaPoints = INITIAL_MANA;
 
-        Invoke("RestartPosition", 0.2f); // Delay player reposition to wait until the animation of death is over.
+        RestartPosition();
+        // // For delay player reposition to wait until the animation of death is over.
+        // Invoke("RestartPosition", 0.2f);
     }
 
     void RestartPosition() {
-        this.transform.position = startPosition;
-        this.rigidBody.velocity = Vector2.zero; // Since the player falls at a high velocity at the moment of death, it's better to restart the velocity to prevent the player from going over the edge of the ground.
+        if (conForStartGame > 1) { // If it's not the first time the game is loaded.
+            this.transform.position = startPosition;
+            this.rigidBody.velocity = Vector2.zero; // Since the player falls at a high velocity at the moment of death, it's better to restart the velocity to prevent the player from going over the edge of the ground.
+        }
         
         GameObject mainCamera = GameObject.Find("Main Camera");
         mainCamera.GetComponent<CameraFollow>().ResetCameraPosition();
@@ -92,6 +112,11 @@ public class PlayerController : MonoBehaviour {
 
         if (isLadder && Math.Abs(vertical) > 0f) {
             isClimbing = true;
+        }
+
+        // For interaction with the enemy
+        if (spriteRenderer.color != Color.white) {
+            Invoke("ResetPlayerColorAfterDelay", 0.1f); // Reset palyer's original color after delay
         }
 
 
@@ -156,7 +181,7 @@ public class PlayerController : MonoBehaviour {
         float jumpForceFactor = jumpForce;
 
         if (isSuperJump && manaPoints >= SUPERJUMP_COST) {
-            manaPoints -= SUPERJUMP_COST;
+            CollectMana(-SUPERJUMP_COST);
             jumpForceFactor *= SUPERJUMP_FORCE;
         }
 
@@ -207,6 +232,10 @@ public class PlayerController : MonoBehaviour {
         if (this.healthPoints >= MAX_HEALTH) {
             this.healthPoints = MAX_HEALTH;
         }
+
+        if (this.healthPoints < MIN_HEALTH) {
+            this.healthPoints = MIN_HEALTH;
+        }
     }
 
     public void CollectMana(int points) {
@@ -214,6 +243,10 @@ public class PlayerController : MonoBehaviour {
 
         if (this.manaPoints >= MAX_MANA) {
             this.manaPoints = MAX_MANA;
+        }
+
+        if (this.manaPoints < MIN_MANA) {
+            this.manaPoints = MIN_MANA;
         }
     }
 
@@ -240,6 +273,23 @@ public class PlayerController : MonoBehaviour {
         if (collision.CompareTag("Stair")) {
             isLadder = true;
         }
+
+        // For interaction with the enemy
+        if (collision.GetComponent<Enemy>()) {
+            // Reduce Player's life
+            CollectHealth(-enemyDamage);
+
+            // To make the player jump horizontally when collides with the enemy.
+            rigidBody.velocity = Vector2.zero;
+            Vector3 playerPos = collision.transform.position; // Player's position
+            Vector3 currentPos = transform.position; // Enemy's position
+            Vector3 dir = playerPos - currentPos; // Direction for the force
+            dir.Normalize();
+            rigidBody.AddForce(new Vector2(dir.x * forceDamageX, forceDamageY), ForceMode2D.Impulse);
+
+            // To make the player blink in red
+            StartCoroutine(BlinkPlayer(Color.red));
+        }
     }
 
     private void OnTriggerStay2D(Collider2D collision) {
@@ -258,12 +308,26 @@ public class PlayerController : MonoBehaviour {
             isClimbing = false;
 
             // Reset animation speed to normal after a while
-            StartCoroutine(ResetAnimationSpeed());
+            Invoke("ResetAnimationSpeed", 0.3f);
         }
     }
 
-    private IEnumerator ResetAnimationSpeed() {
-        yield return new WaitForSeconds(0.3f); // Waiting time
+    private void ResetAnimationSpeed() {
         animator.speed = 1f; // Resets animation speed to normal
+    }
+
+    private IEnumerator BlinkPlayer(Color blinkColor) {
+        Color originalColor = spriteRenderer.color; // Player's original color
+
+        for (int i = 0; i < 3; i++) {
+            spriteRenderer.color = blinkColor; // Change player color
+            yield return new WaitForSeconds(0.1f); // Blinking time (pause for 0.1 seconds)
+            spriteRenderer.color = originalColor; // Change to the original color
+            yield return new WaitForSeconds(0.1f);
+        }
+    }
+
+    private void ResetPlayerColorAfterDelay() {
+        spriteRenderer.color = Color.white; // Reset palyer's original color
     }
 }

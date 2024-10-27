@@ -48,13 +48,13 @@ public class Enemy : MonoBehaviour {
 
         if (GameManager.sharedInstance.currentGameState == GameState.inGame) { // Move only inside Game.
             rigidBody.velocity = new Vector2(currentRunningSpeed, rigidBody.velocity.y);
-        } else if (GameManager.sharedInstance.currentGameState == GameState.gameOver) {
+        } else {
             rigidBody.velocity = Vector2.zero;
         }
     }
 
     private void OnTriggerEnter2D(Collider2D collision) {
-        if (collision.tag == "Star" || collision.tag == "Carrot" || collision.tag == "Exit-zone") {
+        if (collision.tag == "Star" || collision.tag == "Carrot" || collision.tag == "Exit-zone" || collision.tag == "WalkBlock") {
             return;
         }
 

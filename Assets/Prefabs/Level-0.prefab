@@ -263,30 +263,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 245479664503417186}
     m_Modifications:
-    - target: {fileID: 3635208167244837011, guid: dcab235cb7853e84c8dd14cc5e315436, type: 3}
-      propertyPath: m_RootOrder
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 8184910987997446144, guid: dcab235cb7853e84c8dd14cc5e315436, type: 3}
-      propertyPath: m_RootOrder
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8184910988088077060, guid: dcab235cb7853e84c8dd14cc5e315436, type: 3}
-      propertyPath: m_RootOrder
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 8184910988199095595, guid: dcab235cb7853e84c8dd14cc5e315436, type: 3}
-      propertyPath: m_RootOrder
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 8184910988549304717, guid: dcab235cb7853e84c8dd14cc5e315436, type: 3}
-      propertyPath: m_RootOrder
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8184910988619576003, guid: dcab235cb7853e84c8dd14cc5e315436, type: 3}
-      propertyPath: m_RootOrder
-      value: 3
-      objectReference: {fileID: 0}
     - target: {fileID: 8184910989123075898, guid: dcab235cb7853e84c8dd14cc5e315436, type: 3}
       propertyPath: m_Name
       value: Small-hill-right
@@ -730,10 +706,6 @@ PrefabInstance:
     - target: {fileID: 6588639108272643467, guid: 03b3ababf3a73f249bccd5f2cef4369f, type: 3}
       propertyPath: m_Name
       value: Small-hill-left
-      objectReference: {fileID: 0}
-    - target: {fileID: 6588639108576269665, guid: 03b3ababf3a73f249bccd5f2cef4369f, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: -0.0825
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 03b3ababf3a73f249bccd5f2cef4369f, type: 3}
