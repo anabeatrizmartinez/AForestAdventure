@@ -46,7 +46,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.022426963, y: -0.15983626}
+  m_Offset: {x: -0.023631439, y: -0.16233933}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -57,7 +57,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.14698207, y: 0.010334432}
+  m_Size: {x: 0.16266015, y: 0.02874124}
   m_EdgeRadius: 0
 --- !u!114 &1016710839
 MonoBehaviour:
@@ -220,7 +220,6 @@ MonoBehaviour:
   runningSpeed: 1
   jumpRayDistance: 0.15
   rigidBody: {fileID: 5310321515356718945}
-  player: {fileID: 5310321515356718974}
   healthPoints: 0
   manaPoints: 0
   groundMask:
@@ -242,6 +241,6 @@ CapsuleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.006891191, y: -0.037958205}
-  m_Size: {x: 0.1394819, y: 0.18384397}
+  m_Offset: {x: -0.008796036, y: -0.03154373}
+  m_Size: {x: 0.09923661, y: 0.17101502}
   m_Direction: 0

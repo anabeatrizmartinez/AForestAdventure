@@ -44,7 +44,5 @@ public class EnemyPlayerHeadCheck : MonoBehaviour {
 
     private void HideAfterDelay() {
         spriteRendererEnemy.enabled = false;
-        // rbEnemy.constraints = RigidbodyConstraints2D.None;
-        // rbEnemy.constraints = RigidbodyConstraints2D.FreezePositionY;
     }
 }

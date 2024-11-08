@@ -24,6 +24,9 @@ public class GameManager : MonoBehaviour {
 
     private int conForStartGame = 0;
 
+    public bool fromGameOver = false;
+
+
     void Awake() {
         if (sharedInstance == null) {
             sharedInstance = this; // Init here to ensure that the first one is the one it's going to rule.
@@ -48,7 +51,8 @@ public class GameManager : MonoBehaviour {
     }
 
     // 3 essential methods to control the game - are public to control them from Unity as well. - StartGame(), GameOver() and PauseMenu().
-    public void StartGame() {
+    public void StartGame(bool inGameOver) {
+        fromGameOver = inGameOver; // To avoid an error in this specific situation, where the Exit-zone is called a second time after pressing the Retry button in the Game Over Menu.
         conForStartGame++;
         SetGameState(GameState.inGame);
     }
@@ -103,6 +107,11 @@ public class GameManager : MonoBehaviour {
     void ReloadLevel() {
         LevelManager.sharedInstance.GenerateInitialLevelsBlock();
         controller.StartGame();
+        Invoke("ResetBoolFromGameOver", 0.2f);
+    }
+
+    void ResetBoolFromGameOver() {
+        fromGameOver = false; // For the Exit-zone to work properly again.
     }
 
     public void ContinueGame() { // A separate method of SetGameState() to be able to continue the game without restarting it, while in pause menu.

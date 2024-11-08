@@ -11,7 +11,7 @@ public class PlayerEnemyHeadCheck : MonoBehaviour {
     private void OnTriggerEnter2D(Collider2D collision) {
         if (collision.GetComponent<EnemyPlayerHeadCheck>()) {
             // Bounce Player
-            rbPlayer.velocity = new Vector2(rbPlayer.velocity.x, 0f);
+            rbPlayer.velocity = Vector2.zero;
             rbPlayer.AddForce(Vector2.up * bounceForce, ForceMode2D.Impulse);
         }
     }

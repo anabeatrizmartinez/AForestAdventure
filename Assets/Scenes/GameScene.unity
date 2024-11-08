@@ -155,6 +155,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentGameState: 0
   collectedObject: 0
+  fromGameOver: 0
 --- !u!4 &62471326
 Transform:
   m_ObjectHideFlags: 0
@@ -296,14 +297,14 @@ MonoBehaviour:
       - m_Target: {fileID: 62471325}
         m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
         m_MethodName: StartGame
-        m_Mode: 1
+        m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
-          m_BoolArgument: 0
+          m_BoolArgument: 1
         m_CallState: 2
 --- !u!114 &103082742
 MonoBehaviour:
@@ -612,10 +613,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   allTheLevelBlocks:
-  - {fileID: 1554568022491763847, guid: 6bad17d553d53a14ea00cb1e9991bc5e, type: 3}
-  - {fileID: 1554568022491763847, guid: 6bad17d553d53a14ea00cb1e9991bc5e, type: 3}
+  - {fileID: 1554568022491763847, guid: fef8dc446ae9a2f479de3ed88ec32eeb, type: 3}
+  - {fileID: 1554568022491763847, guid: fef8dc446ae9a2f479de3ed88ec32eeb, type: 3}
+  - {fileID: 1554568022491763847, guid: fef8dc446ae9a2f479de3ed88ec32eeb, type: 3}
   - {fileID: -1574514575161715607, guid: 68eca799986ca2042b53736e6fc96e5f, type: 3}
   - {fileID: -1574514575161715607, guid: 68eca799986ca2042b53736e6fc96e5f, type: 3}
+  - {fileID: -1574514575161715607, guid: 68eca799986ca2042b53736e6fc96e5f, type: 3}
+  - {fileID: 2810684600660737033, guid: 4b040999aa977cc489441797946a54e8, type: 3}
   - {fileID: 2810684600660737033, guid: 4b040999aa977cc489441797946a54e8, type: 3}
   - {fileID: 2810684600660737033, guid: 4b040999aa977cc489441797946a54e8, type: 3}
   - {fileID: 2810684600660737033, guid: 4b040999aa977cc489441797946a54e8, type: 3}
@@ -629,6 +633,8 @@ MonoBehaviour:
   - {fileID: 6063515789829706021, guid: 749755f96570f184a9d986293856eca4, type: 3}
   - {fileID: 6063515789829706021, guid: 749755f96570f184a9d986293856eca4, type: 3}
   - {fileID: 6063515789829706021, guid: 749755f96570f184a9d986293856eca4, type: 3}
+  - {fileID: 6063515789829706021, guid: 749755f96570f184a9d986293856eca4, type: 3}
+  - {fileID: 4637938834507059099, guid: edabc30d52a53ab47bf870805de402ee, type: 3}
   - {fileID: 4637938834507059099, guid: edabc30d52a53ab47bf870805de402ee, type: 3}
   - {fileID: 4637938834507059099, guid: edabc30d52a53ab47bf870805de402ee, type: 3}
   - {fileID: 4637938834507059099, guid: edabc30d52a53ab47bf870805de402ee, type: 3}
@@ -637,15 +643,18 @@ MonoBehaviour:
   - {fileID: 5579909152896439684, guid: b6f652f6cba297949b79f6349e629069, type: 3}
   - {fileID: 5579909152896439684, guid: b6f652f6cba297949b79f6349e629069, type: 3}
   - {fileID: 5579909152896439684, guid: b6f652f6cba297949b79f6349e629069, type: 3}
+  - {fileID: 5579909152896439684, guid: b6f652f6cba297949b79f6349e629069, type: 3}
   - {fileID: -3268185636425333946, guid: 2dea8373cb311644fa3f40f6638971de, type: 3}
   - {fileID: -3268185636425333946, guid: 2dea8373cb311644fa3f40f6638971de, type: 3}
   - {fileID: -3268185636425333946, guid: 2dea8373cb311644fa3f40f6638971de, type: 3}
   - {fileID: -3268185636425333946, guid: 2dea8373cb311644fa3f40f6638971de, type: 3}
   - {fileID: -3268185636425333946, guid: 2dea8373cb311644fa3f40f6638971de, type: 3}
-  - {fileID: 6063515789829706021, guid: 44548eb45ccd5d34f9b89754cdac926d, type: 3}
-  - {fileID: 6063515789829706021, guid: 44548eb45ccd5d34f9b89754cdac926d, type: 3}
-  - {fileID: 6063515789829706021, guid: 44548eb45ccd5d34f9b89754cdac926d, type: 3}
-  - {fileID: 6063515789829706021, guid: 44548eb45ccd5d34f9b89754cdac926d, type: 3}
+  - {fileID: 5579909152896439684, guid: 00e9ca1e545ed1c43a40200295540cac, type: 3}
+  - {fileID: 5579909152896439684, guid: 00e9ca1e545ed1c43a40200295540cac, type: 3}
+  - {fileID: 5579909152896439684, guid: 00e9ca1e545ed1c43a40200295540cac, type: 3}
+  - {fileID: 5579909152896439684, guid: 00e9ca1e545ed1c43a40200295540cac, type: 3}
+  - {fileID: 5579909152896439684, guid: 00e9ca1e545ed1c43a40200295540cac, type: 3}
+  - {fileID: 6063515789829706021, guid: bb90485eb76760848942b24ef73d2fee, type: 3}
   - {fileID: 6063515789829706021, guid: bb90485eb76760848942b24ef73d2fee, type: 3}
   - {fileID: 6063515789829706021, guid: bb90485eb76760848942b24ef73d2fee, type: 3}
   - {fileID: 6063515789829706021, guid: bb90485eb76760848942b24ef73d2fee, type: 3}
@@ -659,11 +668,13 @@ MonoBehaviour:
   - {fileID: 5579909152896439684, guid: 5b4623cf81b0fe048997d1d78493413a, type: 3}
   - {fileID: 5579909152896439684, guid: 5b4623cf81b0fe048997d1d78493413a, type: 3}
   - {fileID: 5579909152896439684, guid: 5b4623cf81b0fe048997d1d78493413a, type: 3}
+  - {fileID: 5579909152896439684, guid: 5b4623cf81b0fe048997d1d78493413a, type: 3}
   - {fileID: 6063515789829706021, guid: 1f9ba700116cc8b4cb622f14f83fbc28, type: 3}
   - {fileID: 6063515789829706021, guid: 1f9ba700116cc8b4cb622f14f83fbc28, type: 3}
   - {fileID: 6063515789829706021, guid: 1f9ba700116cc8b4cb622f14f83fbc28, type: 3}
   - {fileID: 6063515789829706021, guid: 1f9ba700116cc8b4cb622f14f83fbc28, type: 3}
   - {fileID: 6063515789829706021, guid: 1f9ba700116cc8b4cb622f14f83fbc28, type: 3}
+  - {fileID: 6063515789829706021, guid: 4764ce0b25ba2fc4b92656405c4cae24, type: 3}
   - {fileID: 6063515789829706021, guid: 4764ce0b25ba2fc4b92656405c4cae24, type: 3}
   - {fileID: 6063515789829706021, guid: 4764ce0b25ba2fc4b92656405c4cae24, type: 3}
   - {fileID: 6063515789829706021, guid: 4764ce0b25ba2fc4b92656405c4cae24, type: 3}
@@ -677,6 +688,8 @@ MonoBehaviour:
   - {fileID: 6063515789829706021, guid: 4f3a1fd6eb6dba74f8c7802fd083713c, type: 3}
   - {fileID: 6063515789829706021, guid: 4f3a1fd6eb6dba74f8c7802fd083713c, type: 3}
   - {fileID: 6063515789829706021, guid: 4f3a1fd6eb6dba74f8c7802fd083713c, type: 3}
+  - {fileID: 6063515789829706021, guid: 4f3a1fd6eb6dba74f8c7802fd083713c, type: 3}
+  - {fileID: 6063515789829706021, guid: c52b68a0f906f07459a159e2df01570d, type: 3}
   - {fileID: 6063515789829706021, guid: c52b68a0f906f07459a159e2df01570d, type: 3}
   - {fileID: 6063515789829706021, guid: c52b68a0f906f07459a159e2df01570d, type: 3}
   - {fileID: 6063515789829706021, guid: c52b68a0f906f07459a159e2df01570d, type: 3}
@@ -685,6 +698,8 @@ MonoBehaviour:
   - {fileID: 6063515789829706021, guid: d0a182e519c734648bcb0ebbce896b63, type: 3}
   - {fileID: 6063515789829706021, guid: d0a182e519c734648bcb0ebbce896b63, type: 3}
   - {fileID: 6063515789829706021, guid: d0a182e519c734648bcb0ebbce896b63, type: 3}
+  - {fileID: 6063515789829706021, guid: d0a182e519c734648bcb0ebbce896b63, type: 3}
+  - {fileID: 5579909152896439684, guid: 0c5d904f72f03ed4daa11f3a37d99287, type: 3}
   - {fileID: 5579909152896439684, guid: 0c5d904f72f03ed4daa11f3a37d99287, type: 3}
   - {fileID: 5579909152896439684, guid: 0c5d904f72f03ed4daa11f3a37d99287, type: 3}
   - {fileID: 5579909152896439684, guid: 0c5d904f72f03ed4daa11f3a37d99287, type: 3}
@@ -693,15 +708,26 @@ MonoBehaviour:
   - {fileID: 6063515789829706021, guid: a1892dcc7456ff84fa3f3c917344a90a, type: 3}
   - {fileID: 6063515789829706021, guid: a1892dcc7456ff84fa3f3c917344a90a, type: 3}
   - {fileID: 6063515789829706021, guid: a1892dcc7456ff84fa3f3c917344a90a, type: 3}
+  - {fileID: 6063515789829706021, guid: a1892dcc7456ff84fa3f3c917344a90a, type: 3}
+  - {fileID: 2810684600660737033, guid: a3aff63fb01ab52418c9a0f387e6159e, type: 3}
+  - {fileID: 2810684600660737033, guid: a3aff63fb01ab52418c9a0f387e6159e, type: 3}
+  - {fileID: 2810684600660737033, guid: a3aff63fb01ab52418c9a0f387e6159e, type: 3}
+  - {fileID: 2810684600660737033, guid: a3aff63fb01ab52418c9a0f387e6159e, type: 3}
+  - {fileID: 2810684600660737033, guid: a3aff63fb01ab52418c9a0f387e6159e, type: 3}
+  - {fileID: 2810684600660737033, guid: db8337dca6bd6a644bcefe909cb3ddef, type: 3}
+  - {fileID: 2810684600660737033, guid: db8337dca6bd6a644bcefe909cb3ddef, type: 3}
+  - {fileID: 2810684600660737033, guid: db8337dca6bd6a644bcefe909cb3ddef, type: 3}
+  - {fileID: 2810684600660737033, guid: db8337dca6bd6a644bcefe909cb3ddef, type: 3}
+  - {fileID: 2810684600660737033, guid: db8337dca6bd6a644bcefe909cb3ddef, type: 3}
+  - {fileID: 2810684600660737033, guid: b11d8f4b2ea8b1c4abc7a22137a9b55f, type: 3}
+  - {fileID: 2810684600660737033, guid: b11d8f4b2ea8b1c4abc7a22137a9b55f, type: 3}
+  - {fileID: 2810684600660737033, guid: b11d8f4b2ea8b1c4abc7a22137a9b55f, type: 3}
+  - {fileID: 2810684600660737033, guid: b11d8f4b2ea8b1c4abc7a22137a9b55f, type: 3}
+  - {fileID: 2810684600660737033, guid: b11d8f4b2ea8b1c4abc7a22137a9b55f, type: 3}
   - {fileID: 2810684600660737033, guid: 4b040999aa977cc489441797946a54e8, type: 3}
   - {fileID: 4637938834507059099, guid: edabc30d52a53ab47bf870805de402ee, type: 3}
   - {fileID: 5579909152896439684, guid: 5b4623cf81b0fe048997d1d78493413a, type: 3}
   - {fileID: 6063515789829706021, guid: a1892dcc7456ff84fa3f3c917344a90a, type: 3}
-  - {fileID: 5579909152896439684, guid: 00e9ca1e545ed1c43a40200295540cac, type: 3}
-  - {fileID: 5579909152896439684, guid: 00e9ca1e545ed1c43a40200295540cac, type: 3}
-  - {fileID: 5579909152896439684, guid: 00e9ca1e545ed1c43a40200295540cac, type: 3}
-  - {fileID: 5579909152896439684, guid: 00e9ca1e545ed1c43a40200295540cac, type: 3}
-  - {fileID: 5579909152896439684, guid: 00e9ca1e545ed1c43a40200295540cac, type: 3}
   currentLevelBlocks: []
   levelStartPosition: {fileID: 1065244034}
   walkBlockPrefab: {fileID: 6405356065283631106, guid: 996cbf642f83c684fa4c94fd740df5e0, type: 3}
@@ -1890,7 +1916,7 @@ MonoBehaviour:
       - m_Target: {fileID: 62471325}
         m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
         m_MethodName: StartGame
-        m_Mode: 1
+        m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -2200,7 +2226,7 @@ MonoBehaviour:
       - m_Target: {fileID: 62471325}
         m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
         m_MethodName: StartGame
-        m_Mode: 1
+        m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine

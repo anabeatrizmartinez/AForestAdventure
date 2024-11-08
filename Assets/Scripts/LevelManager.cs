@@ -4,11 +4,13 @@ using UnityEngine;
 
 public class LevelManager : MonoBehaviour {
 
+    
     public static LevelManager sharedInstance;
 
     public List<LevelBlock> allTheLevelBlocks = new List<LevelBlock>();  // All the level block avalaibles.
     public List<LevelBlock> currentLevelBlocks = new List<LevelBlock>(); // Current level blocks in the scene.
     public Transform levelStartPosition;
+
     
     // Walk Block to not fall from the edge at the level start point.
     public GameObject walkBlockPrefab; // For the prefab
@@ -68,6 +70,7 @@ public class LevelManager : MonoBehaviour {
     }
 
     public void RemoveLevelBlock() {
+        // Remove block.
         LevelBlock oldBlock = currentLevelBlocks[0];
         currentLevelBlocks.Remove(oldBlock);
         Destroy(oldBlock.gameObject);

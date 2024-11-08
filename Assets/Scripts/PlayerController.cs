@@ -17,6 +17,7 @@ public class PlayerController : MonoBehaviour {
     private int conForStartGame = 0;
 
     [SerializeField] private Rigidbody2D rigidBody;
+    Collider2D colliderPlayer;
     Vector3 startPosition; // Variables are private by default.
     Animator animator; // To control animations
     SpriteRenderer spriteRenderer; // To control the sprite
@@ -29,7 +30,7 @@ public class PlayerController : MonoBehaviour {
     [SerializeField] private int healthPoints; // Carrots in this game
     [SerializeField] private int manaPoints; // When destroying enemies
     
-    public const int INITIAL_HEALTH = 5, MAX_HEALTH = 10, MIN_HEALTH = 1,
+    public const int INITIAL_HEALTH = 5, MAX_HEALTH = 10, MIN_HEALTH = 0,
         INITIAL_MANA = 15, MAX_MANA = 30, MIN_MANA = 0;
 
     public const int SUPERJUMP_COST = 5; // With mana
@@ -54,6 +55,7 @@ public class PlayerController : MonoBehaviour {
         rigidBody = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
         spriteRenderer = GetComponent<SpriteRenderer>();
+        colliderPlayer = GetComponent<Collider2D>();
     }
 
     // Start is called before the first frame update
@@ -77,15 +79,16 @@ public class PlayerController : MonoBehaviour {
         healthPoints = INITIAL_HEALTH;
         manaPoints = INITIAL_MANA;
 
-        RestartPosition();
-        // // For delay player reposition to wait until the animation of death is over.
-        // Invoke("RestartPosition", 0.2f);
+        // For delay player reposition to wait until the animation of death is over.
+        Invoke("RestartPosition", 0.2f);
     }
 
     void RestartPosition() {
         if (conForStartGame > 1) { // If it's not the first time the game is loaded.
             this.transform.position = startPosition;
             this.rigidBody.velocity = Vector2.zero; // Since the player falls at a high velocity at the moment of death, it's better to restart the velocity to prevent the player from going over the edge of the ground.
+            this.transform.rotation = Quaternion.identity; // Set rotation to 0.
+            rigidBody.constraints = RigidbodyConstraints2D.FreezeRotation;
         }
         
         GameObject mainCamera = GameObject.Find("Main Camera");
@@ -121,7 +124,7 @@ public class PlayerController : MonoBehaviour {
 
 
         // // Gizmos - works for debugging, view lines in game mode
-        // float characterHeight = GetComponent<Collider2D>().bounds.size.y; // Character's height
+        // float characterHeight = colliderPlayer.bounds.size.y; // Character's height
         // Vector2 direction = Vector2.down; // Ray direction down
         // direction.Normalize(); // Normalize the vector. This ensures that the direction has 1 unit of length and the result is more accurate.
 
@@ -194,7 +197,7 @@ public class PlayerController : MonoBehaviour {
 
     // Indicates if the character is touching or not the ground
     bool IsTouchingTheGround() { 
-        float characterHeight = GetComponent<Collider2D>().bounds.size.y; // Character's height
+        float characterHeight = colliderPlayer.bounds.size.y; // Character's height
         Vector2 direction = Vector2.down; // Ray direction down
         direction.Normalize(); // Normalize the vector. This ensures that the direction has 1 unit of length and the result is more accurate.
 
@@ -220,8 +223,6 @@ public class PlayerController : MonoBehaviour {
         }
 
         animator.SetBool(STATE_ALIVE, false);
-        rigidBody.velocity = Vector2.zero;
-        rigidBody.gravityScale = 0;
 
         GameManager.sharedInstance.GameOver();
     }
@@ -233,7 +234,7 @@ public class PlayerController : MonoBehaviour {
             this.healthPoints = MAX_HEALTH;
         }
 
-        if (this.healthPoints < MIN_HEALTH) {
+        if (this.healthPoints <= MIN_HEALTH) {
             this.healthPoints = MIN_HEALTH;
         }
     }
@@ -245,7 +246,7 @@ public class PlayerController : MonoBehaviour {
             this.manaPoints = MAX_MANA;
         }
 
-        if (this.manaPoints < MIN_MANA) {
+        if (this.manaPoints <= MIN_MANA) {
             this.manaPoints = MIN_MANA;
         }
     }
@@ -279,16 +280,20 @@ public class PlayerController : MonoBehaviour {
             // Reduce Player's life
             CollectHealth(-enemyDamage);
 
-            // To make the player jump horizontally when collides with the enemy.
-            rigidBody.velocity = Vector2.zero;
-            Vector3 playerPos = collision.transform.position; // Player's position
-            Vector3 currentPos = transform.position; // Enemy's position
-            Vector3 dir = playerPos - currentPos; // Direction for the force
-            dir.Normalize();
-            rigidBody.AddForce(new Vector2(dir.x * forceDamageX, forceDamageY), ForceMode2D.Impulse);
+            if (this.healthPoints == MIN_HEALTH) {
+                Die();
+            } else {
+                // To make the player jump horizontally when collides with the enemy.
+                rigidBody.velocity = Vector2.zero;
+                Vector3 playerPos = collision.transform.position; // Player's position
+                Vector3 currentPos = transform.position; // Enemy's position
+                Vector3 dir = playerPos - currentPos; // Direction for the force
+                dir.Normalize();
+                rigidBody.AddForce(new Vector2(dir.x * forceDamageX, forceDamageY), ForceMode2D.Impulse);
 
-            // To make the player blink in red
-            StartCoroutine(BlinkPlayer(Color.red));
+                // To make the player blink in red
+                StartCoroutine(BlinkPlayer(Color.red));
+            }
         }
     }
 
