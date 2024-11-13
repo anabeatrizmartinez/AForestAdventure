@@ -10,6 +10,7 @@ public class EnemyPlayerHeadCheck : MonoBehaviour {
     private Rigidbody2D rbEnemy;
     private Animator animatorEnemy;
     private SpriteRenderer spriteRendererEnemy;
+    private AudioSource audioSourceEnemy;
     private GameObject player;
     private int newMana = 7;
 
@@ -23,12 +24,15 @@ public class EnemyPlayerHeadCheck : MonoBehaviour {
         rbEnemy = this.transform.parent.GetComponent<Rigidbody2D>();
         animatorEnemy = this.transform.parent.GetComponent<Animator>();
         spriteRendererEnemy = this.transform.parent.GetComponent<SpriteRenderer>();
+        audioSourceEnemy = this.transform.parent.GetComponent<AudioSource>();
 
         player = GameObject.Find("Player");
     }
 
     private void OnTriggerEnter2D(Collider2D collision) {
         if (collision.GetComponent<PlayerEnemyHeadCheck>()) {
+            audioSourceEnemy.Play(); // Starts the death sound of the enemy.
+
             // Destroy enemy
             rbEnemy.velocity = Vector2.zero;
             rbEnemy.constraints = RigidbodyConstraints2D.FreezePosition;

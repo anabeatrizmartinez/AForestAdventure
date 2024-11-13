@@ -20,10 +20,12 @@ public class Collectable : MonoBehaviour {
     public int value = 1;
 
     GameObject player;
+    AudioSource audioSource;
 
     private void Awake() {
         sprite = GetComponent<SpriteRenderer>();
         itemCollider = GetComponent<Collider2D>();
+        audioSource = GetComponent<AudioSource>();
     }
 
     private void Start() {
@@ -42,6 +44,11 @@ public class Collectable : MonoBehaviour {
     }
 
     void Collect() {
+        // Check audio source and start it.
+        if (audioSource != null) {
+            audioSource.Play();
+        }
+
         Hide();
         hasBeenCollected = true;
 

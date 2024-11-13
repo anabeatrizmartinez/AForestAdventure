@@ -26,11 +26,16 @@ public class GameManager : MonoBehaviour {
 
     public bool fromGameOver = false;
 
+    [SerializeField] private AudioSource backgroundMusic;
+    float initVolume;
+
 
     void Awake() {
         if (sharedInstance == null) {
             sharedInstance = this; // Init here to ensure that the first one is the one it's going to rule.
         }
+
+        initVolume = backgroundMusic.volume;
     }
 
     // Start is called before the first frame update
@@ -69,14 +74,21 @@ public class GameManager : MonoBehaviour {
     // To modify the game state, like traffic lights - It's better to have a single method to control possible changes to state variables.
     private void SetGameState(GameState newGameState) {
         if (newGameState == GameState.menu) {
-            // menu logic (show menu, buttons, pause game, etc).
+            // menu logic (show menu, buttons, etc).
             GameViewManager.sharedInstance.HideGameView();
             MenuManager.sharedInstance.HideGameOverMenu();
             MenuManager.sharedInstance.HidePauseMenu();
             MenuManager.sharedInstance.ShowMainMenu();
         } else if (newGameState == GameState.inGame) {
             // prepare scene to play.
+            backgroundMusic.volume = initVolume; // Reset volume of the background music.
+
             if (conForStartGame > 1) { // If it's not the first time the game is loaded.
+                // Reset the background music's state
+                backgroundMusic.Stop();
+                backgroundMusic.Play();
+
+                // Remove all level blocks
                 LevelManager.sharedInstance.RemoveAllLevelsBlock();
             }            
             
@@ -89,12 +101,16 @@ public class GameManager : MonoBehaviour {
             GameViewManager.sharedInstance.ShowGameView();
         } else if (newGameState == GameState.pauseGame) {
             // pause menu logic
+            backgroundMusic.volume = 0.25f; // Low the background music.
+
             GameViewManager.sharedInstance.HideGameView();
             MenuManager.sharedInstance.HideGameOverMenu();
             MenuManager.sharedInstance.HideMainMenu();
             MenuManager.sharedInstance.ShowPauseMenu();
         } else if (newGameState == GameState.gameOver) {
             // prepare game for Game Over.
+            backgroundMusic.Stop(); // Stop the background music.
+
             MenuManager.sharedInstance.HideMainMenu();
             MenuManager.sharedInstance.HidePauseMenu();
             GameViewManager.sharedInstance.HideGameView();
@@ -115,6 +131,8 @@ public class GameManager : MonoBehaviour {
     }
 
     public void ContinueGame() { // A separate method of SetGameState() to be able to continue the game without restarting it, while in pause menu.
+        backgroundMusic.volume = initVolume; // Reset volume of the background music.
+
         MenuManager.sharedInstance.HidePauseMenu();
         GameViewManager.sharedInstance.ShowGameView();
         this.currentGameState = GameState.inGame;

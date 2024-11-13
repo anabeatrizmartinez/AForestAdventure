@@ -16,8 +16,12 @@ public class MovingPlatformActivate : MonoBehaviour {
     private Vector3 startPosition; // initial position of the platform;
     private bool onCollision = false;
     private Animator animator; // moving platform animation.
+    
+    private AudioSource audioSource;
+
 
     private void Start() {
+        audioSource = GetComponent<AudioSource>();
         rbPlatform = GetComponent<Rigidbody2D>();
         rbBox = box.GetComponent<Rigidbody2D>();
         colPlatform = GetComponent<Collider2D>();
@@ -53,6 +57,8 @@ public class MovingPlatformActivate : MonoBehaviour {
     
     void OnCollisionEnter2D (Collision2D collision) {
         if (collision.gameObject.CompareTag("Box")) {
+            audioSource.Play();
+            
             onCollision = true;
 
             // Activate moving platform movement.

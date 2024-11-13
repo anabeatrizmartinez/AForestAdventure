@@ -21,6 +21,7 @@ public class PlayerController : MonoBehaviour {
     Vector3 startPosition; // Variables are private by default.
     Animator animator; // To control animations
     SpriteRenderer spriteRenderer; // To control the sprite
+    private List<AudioSource> audioSources;
 
     const string STATE_ALIVE = "isAlive"; // "isAlive" is the parameter in the Animator section of Unity.
     const string STATE_TAKE_OF = "takeOf";
@@ -56,6 +57,7 @@ public class PlayerController : MonoBehaviour {
         animator = GetComponent<Animator>();
         spriteRenderer = GetComponent<SpriteRenderer>();
         colliderPlayer = GetComponent<Collider2D>();
+        audioSources = new List<AudioSource>(GetComponents<AudioSource>()); // Get all player's audio source components.
     }
 
     // Start is called before the first frame update
@@ -182,12 +184,30 @@ public class PlayerController : MonoBehaviour {
 
     void Jump() {
         float jumpForceFactor = jumpForce;
+        bool makeSuperJumpAudio = false;
 
+        // Set the jumpForceFactor for jump or super jump.
         if (isSuperJump && manaPoints >= SUPERJUMP_COST) {
+            makeSuperJumpAudio = true;
+
             CollectMana(-SUPERJUMP_COST);
             jumpForceFactor *= SUPERJUMP_FORCE;
         }
 
+        // Find the correct audio for jump or super jump.
+        if (makeSuperJumpAudio) {
+            AudioSource audioSuperJump = audioSources.Find(source => source.clip.name == "8_bit_superJump");
+            if (audioSuperJump != null) {
+                audioSuperJump.Play();
+            }
+        } else {
+            AudioSource audioJump = audioSources.Find(source => source.clip.name == "8_bit_jump");
+            if (audioJump != null) {
+                audioJump.Play();
+            }
+        }
+
+        // Make the jump.
         if (IsTouchingTheGround()) {
             rigidBody.AddForce(Vector2.up * jumpForceFactor, ForceMode2D.Impulse);
 
@@ -222,8 +242,16 @@ public class PlayerController : MonoBehaviour {
             PlayerPrefs.SetFloat("maxscore", travelledDistance);
         }
 
+        // Find the correct audio for game over
+        AudioSource audioGameOver = audioSources.Find(source => source.clip.name == "game_over_arcade");
+        if (audioGameOver != null) {
+            audioGameOver.Play();
+        }
+
+        // Set animation of player's death.
         animator.SetBool(STATE_ALIVE, false);
 
+        // Call Game Over Menu
         GameManager.sharedInstance.GameOver();
     }
 
@@ -277,6 +305,12 @@ public class PlayerController : MonoBehaviour {
 
         // For interaction with the enemy
         if (collision.GetComponent<Enemy>()) {
+            // Find the correct audio for lose life
+            AudioSource audioLoseLife = audioSources.Find(source => source.clip.name == "lose_life");
+            if (audioLoseLife != null) {
+                audioLoseLife.Play();
+            }
+            
             // Reduce Player's life
             CollectHealth(-enemyDamage);
 

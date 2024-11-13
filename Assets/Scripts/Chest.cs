@@ -9,11 +9,13 @@ public class Chest : MonoBehaviour {
     public float upForce = 3f;
     private Animator animator;
     private bool opened = false;
+    private AudioSource audioSource;
     
     // Start is called before the first frame update
     void Start() {
         animator = GetComponent<Animator>();
         animator.enabled = false;
+        audioSource = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -64,6 +66,10 @@ public class Chest : MonoBehaviour {
 
     private void OnCollisionEnter2D(Collision2D collision) {
         if (collision.gameObject.CompareTag("Player")) {
+            if (!opened) {
+                audioSource.Play();
+            }
+            
             animator.enabled = true;
             GenerateObjects();
             opened = true; // to open the chest only once.
