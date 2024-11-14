@@ -6,6 +6,7 @@
 ## Features
 - **Super Jumps**: Perform impressive jumps to reach new heights and evade dangers.
 - **Enemy Defeat**: Destroy enemies by jumping on them to clear your path.
+- **Mana Generation**: Defeating enemies generates mana, which is used to perform super jumps.
 
 ## Installation
 1. Clone this repository: git clone https://github.com/anabeatrizmartinez/AForestAdventure.git
