@@ -21,4 +21,4 @@
 - Zdeněk Jeřábek from Pixabay: https://pixabay.com/es/users/boadrius-43674024/
 
 ## License
-This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for more information.
+This project is licensed under the MIT License. See the [LICENSE](https://github.com/anabeatrizmartinez/AForestAdventure/edit/master/LICENSE.md) file for more information.
