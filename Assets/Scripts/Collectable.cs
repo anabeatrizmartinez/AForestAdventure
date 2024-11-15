@@ -68,7 +68,11 @@ public class Collectable : MonoBehaviour {
     void OnTriggerEnter2D(Collider2D collision) {
         if (collision.tag == "Player") {
             // Destroy(gameObject); // Just for testing
-            Collect();
+
+            // To avoid an error in this specific situation, where after restarting the game, and before the player is set to the start position, he falls into a level with a collectable, and that activates this function, so by the time the player is set to the start position, he is set but not with the initial values of collectables.
+            if (GameManager.sharedInstance.gameMenuState != "gameOver" && GameManager.sharedInstance.gameMenuState != "pause") {
+                Collect();
+            }
         }
     }
 

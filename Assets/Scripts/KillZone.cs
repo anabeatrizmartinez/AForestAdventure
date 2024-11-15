@@ -26,7 +26,7 @@ public class KillZone : MonoBehaviour {
 
     private void OnTriggerEnter2D(Collider2D collision) { // When a collider enters another.
         if (collision.GetComponent<PlayerController>()) {
-            if (!gameManager.fromGameOver) { // To avoid an error in this specific situation, where the Kill-zone is called a second time after pressing the Retry button in the Game Over Menu.
+            if (gameManager.gameMenuState != "gameOver") { // To avoid an error in this specific situation, where the Kill-zone is called a second time after pressing the Retry button in the Game Over Menu.
                 // Bounce Player
                 rbPlayer.velocity = Vector2.zero;
                 rbPlayer.AddForce(Vector2.up * 1.5f, ForceMode2D.Impulse);
@@ -35,7 +35,7 @@ public class KillZone : MonoBehaviour {
                 Invoke("StopPlayer", 0.1f);
 
                 // Hide kill zone collider
-                currentCollider.enabled = false;
+                // currentCollider.enabled = false;
 
                 // Player die
                 controller.Die();

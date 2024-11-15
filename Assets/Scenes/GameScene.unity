@@ -160,7 +160,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentGameState: 0
   collectedObject: 0
-  fromGameOver: 0
+  gameMenuState: other
   backgroundMusic: {fileID: 647537220}
 --- !u!4 &62471326
 Transform:
@@ -303,13 +303,13 @@ MonoBehaviour:
       - m_Target: {fileID: 62471325}
         m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
         m_MethodName: StartGame
-        m_Mode: 6
+        m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: 
+          m_StringArgument: gameOver
           m_BoolArgument: 1
         m_CallState: 2
 --- !u!114 &103082742
@@ -2050,13 +2050,13 @@ MonoBehaviour:
       - m_Target: {fileID: 62471325}
         m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
         m_MethodName: StartGame
-        m_Mode: 6
+        m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: 
+          m_StringArgument: menu
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &663303439
@@ -2456,13 +2456,13 @@ MonoBehaviour:
       - m_Target: {fileID: 62471325}
         m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
         m_MethodName: StartGame
-        m_Mode: 6
+        m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: 
+          m_StringArgument: pause
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &830570315

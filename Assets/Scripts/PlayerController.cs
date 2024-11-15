@@ -235,24 +235,27 @@ public class PlayerController : MonoBehaviour {
     }
 
     public void Die() {
-        // Max score
-        float travelledDistance = GetTravelledDistance();
-        float previousMaxDistance = PlayerPrefs.GetFloat("maxscore", 0f);
-        if (travelledDistance > previousMaxDistance) {
-            PlayerPrefs.SetFloat("maxscore", travelledDistance);
+        // To avoid an error in this specific situation, where after restarting the game, and before the player is set to the start position, he falls into a level with a kill zone, and that activates the game over, so by the time the player is set to the start position, he is set but with the game over menu active.
+        if (GameManager.sharedInstance.gameMenuState != "gameOver" && GameManager.sharedInstance.gameMenuState != "pause") {
+            // Max score
+            float travelledDistance = GetTravelledDistance();
+            float previousMaxDistance = PlayerPrefs.GetFloat("maxscore", 0f);
+            if (travelledDistance > previousMaxDistance) {
+                PlayerPrefs.SetFloat("maxscore", travelledDistance);
+            }
+    
+            // Find the correct audio for game over
+            AudioSource audioGameOver = audioSources.Find(source => source.clip.name == "game_over_arcade");
+            if (audioGameOver != null) {
+                audioGameOver.Play();
+            }
+    
+            // Set animation of player's death.
+            animator.SetBool(STATE_ALIVE, false);
+    
+            // Call Game Over Menu
+            GameManager.sharedInstance.GameOver();
         }
-
-        // Find the correct audio for game over
-        AudioSource audioGameOver = audioSources.Find(source => source.clip.name == "game_over_arcade");
-        if (audioGameOver != null) {
-            audioGameOver.Play();
-        }
-
-        // Set animation of player's death.
-        animator.SetBool(STATE_ALIVE, false);
-
-        // Call Game Over Menu
-        GameManager.sharedInstance.GameOver();
     }
 
     public void CollectHealth(int points) {
