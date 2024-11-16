@@ -13,6 +13,10 @@
 2. Open the project in Unity.
 3. Build and run the game.
 
+## Controls
+- **Arrows or WAD** to move and jump.
+- **Ctrl** to perform a Super Jump.
+
 ## Credits
 
 ### Sprites
